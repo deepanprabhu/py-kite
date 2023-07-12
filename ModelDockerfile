@@ -1,0 +1,6 @@
+FROM python:3.11
+WORKDIR /code
+COPY model-requirements.txt /code/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY ../model.py /code/model.py
+CMD ["/bin/bash", "-c","cd /code; python3 -c \"from model import *; model=Model(); model.write_db('$INPUT', '$POSTLINK');\" /code/model.py"]
